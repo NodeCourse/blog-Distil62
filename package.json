@@ -1,0 +1,25 @@
+{
+  "name": "blog-distil62",
+  "version": "1.0.0",
+  "description": "Create a blog with a single page listing articles and a form to post a new one. An article should have at least the `title` and `content` properties.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NodeCourse/blog-Distil62.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NodeCourse/blog-Distil62/issues"
+  },
+  "homepage": "https://github.com/NodeCourse/blog-Distil62#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "pug": "^2.0.3",
+    "sequelize": "^4.37.7"
+  }
+}
