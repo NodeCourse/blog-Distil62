@@ -1,0 +1,19 @@
+html(lang="en")
+    include head.pug
+    body
+        main
+            include nav.pug
+            div(class="container")
+                each article in data
+                    div(class="card")
+                        div(class="card-image")
+                            img(src=article.imgSrc)
+                            span(class="card-title") Billet numéro 
+                                span=article.id
+                        div(class="card-content")
+                            p=article.description
+                            p(class="right")
+                                i=article.author
+            div(class="fixed-action-btn")
+                a(href="/write" class="btn-floating yellow btn-large")
+                    i(class="large material-icons black-text") add

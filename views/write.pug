@@ -1,0 +1,15 @@
+html(lang="en")
+    include head.pug
+    body
+        main
+            include nav.pug
+            div(class="container center-align")
+                div(class="row")
+                    div(class="col s12")
+                        div(class="card", style="margin:24px;")
+                            div(class="container")
+                                form(action="/add", method="POST" )
+                                    input#author(name="author", type="text", placeholder="Pseudonyme",style="margin-top:24px;")
+                                    input#imgSrc(name="imgSrc", type="text", placeholder="Addresse de l'image",style="margin-top:16px;")
+                                    textarea#description(name="description", placeholder="Description" class="materialize-textarea", style="margin-top:16px;")
+                                    input(class="btn yellow black-text", type="submit", value="Envoyer", style="margin: 24px;")
