@@ -1,0 +1,19 @@
+html(lang="en")
+    include head.pug
+    body
+        main
+            include nav.pug
+            div(class="container center-align")
+                div(class="row")
+                    div(class="col s12")
+                        div(class="card", style="margin:24px;padding : 24px 0 24px 0;")
+                            h3.center Connexion
+                            div(class="container" style="padding : 24px 0 24px 0;")
+                                form(action="/api/post/login", method="POST" )
+                                    input#username(name="username", type="text", placeholder="Nom de compte",style="margin-top:16px;")
+                                    input#password(name="password", type="password", placeholder="Mot de passe",style="margin-top:16px;")
+                                    input.btn.yellow.black-text(type="submit", value="Connexion", style="margin: 24px;")
+                                    p.center
+                                        i Pas encore de compte ?
+                                    p.center
+                                        a(href="/register") S'inscrire

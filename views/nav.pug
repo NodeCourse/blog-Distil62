@@ -1,3 +1,18 @@
-nav
-    div(class="nav-wrapper yellow")
-        a(href="/", class="brand-logo black-text center") SKYBLOG
+div.navbar-fixed
+    nav
+        div(class="nav-wrapper yellow")
+            a(href="/", class="brand-logo black-text left") SKYBLOG
+            if !user
+                ul.right
+                    li
+                        a.black-text(href="/login") Connexion
+                    li
+                        a.black-text(href="/register") Inscription
+            if user
+                ul.right
+                    li.avatar
+                        img.circle.responsive-img(src=user.icon, alt="",width="48px", height="48px", style="position:relative;top:7px;right:8px;")
+                    li
+                        a(href="/profile")
+                            i.material-icons.black-text more_vert
+                

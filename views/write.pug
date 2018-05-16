@@ -3,14 +3,23 @@ html(lang="en")
     body
         main
             include nav.pug
-            div(class="container center-align")
-                div(class="row")
-                    div(class="col s12")
-                        div(class="card", style="margin:24px;")
-                            h2.center Rédigez votre article !
-                            div(class="container")
-                                form(action="/add", method="POST" )
-                                    input#author(name="author", type="text", placeholder="Pseudonyme",style="margin-top:24px;")
-                                    input#imgSrc(name="imgSrc", type="text", placeholder="Addresse de l'image",style="margin-top:16px;")
-                                    textarea#description(name="description", placeholder="Description" class="materialize-textarea", style="margin-top:16px;")
-                                    input(class="btn yellow black-text", type="submit", value="Envoyer", style="margin: 24px;")
+            if user
+                div(class="container center-align")
+                    div(class="row")
+                        div(class="col s12")
+                            div(class="card", style="margin:24px;padding : 24px 0 24px 0;")
+                                h3.center Rédigez votre article !
+                                div(class="container")
+                                    form(action="/api/post/add", method="POST" )
+                                        input#author(name="author" style="display:none;" value=user.username)
+                                        input#title(name="title", type="text", placeholder="Titre de l'article",style="margin-top:16px;")
+                                        input#imgSrc(name="imgSrc", type="text", placeholder="Addresse de l'image",style="margin-top:16px;")
+                                        textarea#description(name="description", placeholder="Description" class="materialize-textarea", style="margin-top:16px;")
+                                        input(class="btn yellow black-text", type="submit", value="Envoyer", style="margin: 24px;")
+            if !user
+                div(class="container center-align")
+                    div(class="row")
+                        div(class="col s12")
+                            div(class="card", style="margin:24px;padding : 24px 0 24px 0;")
+                                h4.center Vous devez être connecté pour écrire un article.
+                                a(href="/login") Connexion

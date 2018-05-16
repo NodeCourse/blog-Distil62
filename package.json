@@ -19,8 +19,13 @@
   "homepage": "https://github.com/NodeCourse/blog-Distil62#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "hash.js": "^1.1.3",
     "mysql2": "^1.5.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.3",
     "sequelize": "^4.37.7"
   }
