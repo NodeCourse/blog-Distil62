@@ -10,9 +10,12 @@ app.set('view engine', 'pug');
 app.use(express.static('public'))
 
 app.get("/", (req, res) => {
-    Database.getAllArticles((data)=> {
-        res.render("index", {data : data});
-    });
+    Database.getAllArticles((data)=>{
+        Database.getAllResponse((responses) => {
+            //res.send(responses);
+            res.render("index", {data : data, resp : responses});
+        })
+    })
 });
 
 app.get("/index", (req, res) => {
@@ -29,5 +32,10 @@ app.post("/add", (req, res)=> {
     Database.createArticle(req.body);
     res.redirect("/");
 });
+
+app.post("/ask", (req, res)=>{
+    Database.createResponse(req.body);
+    res.redirect("/");
+})
 
 app.listen(PORT, console.log("The server is listen on http://localhost:" + PORT));
