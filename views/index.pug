@@ -8,14 +8,13 @@ html(lang="en")
                     div(class="card")
                         div(class="card-image")
                             img(src=article.imgSrc)
-                            span(class="card-title") Billet numéro 
-                                span=article.id
+                            span(class="card-title")=article.title
                         div(class="card-content")
                             p=article.description
                             p(class="right")
                                 i=article.author
                             div.card-action
-                                form(action="/ask", method="POST")
+                                form(action="/api/post/ask", method="POST")
                                     div.row
                                         input(name="articleId", style="display : none;" value=article.id)
                                         input.col.s3(name="authorRes", placeholder="Entrez votre pseudo" required)
@@ -35,7 +34,7 @@ html(lang="en")
                                                             h6=response.authorRes
                                                             p=response.contentRes
             div(class="fixed-action-btn")
-                a(href="/write" class="btn-floating yellow btn-large")
-                    i(class="large material-icons black-text") add
+                            a(href="/write" class="btn-floating yellow btn-large")
+                                i(class="large material-icons black-text") add
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js")
     
