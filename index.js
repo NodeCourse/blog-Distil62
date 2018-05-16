@@ -12,16 +12,17 @@ app.use(express.static('public'))
 app.get("/", (req, res) => {
     Database.getAllArticles((data)=>{
         Database.getAllResponse((responses) => {
-            //res.send(responses);
             res.render("index", {data : data, resp : responses});
         })
     })
 });
 
 app.get("/index", (req, res) => {
-    Database.getAllArticles((data)=> {
-        res.render("index", {data : data});
-    });
+    Database.getAllArticles((data)=>{
+        Database.getAllResponse((responses) => {
+            res.render("index", {data : data, resp : responses});
+        })
+    })
 });
 
 app.get("/write", (req, res) => {

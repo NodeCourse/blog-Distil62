@@ -3,6 +3,10 @@
 Create a blog with a single page listing articles and a form to post a new one.
 An article should have at least the `title` and `content` properties.
 
+## demo
+
+Demo avaiable on this [website](https://blog-distil62-cibonwqkiu.now.sh/)
+
 ## Step by step
 
 1. Get a copy of this repository
