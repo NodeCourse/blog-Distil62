@@ -14,6 +14,26 @@ html(lang="en")
                             p=article.description
                             p(class="right")
                                 i=article.author
+                            div.card-action
+                                form(action="/ask", method="POST")
+                                    div.row
+                                        input(name="articleId", style="display : none;" value=article.id)
+                                        input.col.s3(name="authorRes", placeholder="Entrez votre pseudo" required)
+                                    textarea#askContent(name="contentRes", placeholder="Ecrivez votre réponse" class="materialize-textarea" required)
+                                    input(class="btn yellow black-text", type="submit", value="Répondre")
+                            div
+                                ul.collapsible.row
+                                    li
+                                        div.collapsible-header Voir les réponses
+                                        div.collapsible-body
+                                            ul.collection
+                                                each response in resp
+                                                    if response.articleId == article.id 
+                                                        li.collection-item
+                                                            h6=response.authorRes
+                                                            p=response.contentRes
             div(class="fixed-action-btn")
                 a(href="/write" class="btn-floating yellow btn-large")
                     i(class="large material-icons black-text") add
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js")
+    
