@@ -85,4 +85,8 @@ app.post("/api/post/register", (req, res)=> {
     res.redirect("/login");
 });
 
+app.post("/api/post/:type/:id", (req, res)=>{
+    Database.likeArticle(req.user.id, req.params.id, req.params.type);
+})
+
 app.listen(PORT, console.log("The server is listen on http://localhost:" + PORT));

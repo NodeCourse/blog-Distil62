@@ -15,8 +15,12 @@ html(lang="en")
                                 i=article.author
                             if user
                                 div.card-action
-                                    button.btn-flat.waves-effect.waves-red.red-text Dislike
-                                    button.btn-flat.waves-effect.waves-green.green-text Like
+                                    button.btn-flat.waves-effect.waves-green.green-text(onClick="like(" + article.id + ", \"" + user.articleLiked + "\", \"like\");")
+                                        i.material-icons thumb_up
+                                        span(id="like" + article.id)=article.like
+                                    button.btn-flat.waves-effect.waves-red.red-text(onClick="like(" + article.id + ", \"" + user.articleLiked + "\", \"dislike\");")
+                                        i.material-icons thumb_down
+                                        span(id="dislike" + article.id)=article.dislike
                                     form(action="/api/post/ask", method="POST")
                                         div.row
                                             input(name="articleId", style="display : none;" value=article.id)
@@ -41,7 +45,12 @@ html(lang="en")
                                                                 p(style="position : relative; left:16px;")=response.contentRes
                                                 if resp.length == 0
                                                     li.collection-item
-                                                        p Soit le premier à commenter cet article !
+                                                        if user
+                                                            p Soit le premier à commenter cet article !
+                                                        else
+                                                            a(href="/login") Connecte toi 
+                                                            span et soit le premier à commenter cet article !
+                                                            
             div(class="fixed-action-btn")
                             a(href="/write" class="btn-floating yellow btn-large")
                                 i(class="large material-icons black-text") add

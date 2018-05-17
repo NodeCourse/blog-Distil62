@@ -10,7 +10,8 @@ const db = new Sequelize('sql2238055', 'sql2238055', 'iI9*wE1%', {
 const User = db.define('user', {
     username : { type: Sequelize.STRING },
     password : { type: Sequelize.STRING },
-    icon : { type: Sequelize.STRING, defaultValue : "https://d2ln1xbi067hum.cloudfront.net/assets/default_user-abdf6434cda029ecd32423baac4ec238.png"}
+    icon : { type: Sequelize.STRING, defaultValue : "https://d2ln1xbi067hum.cloudfront.net/assets/default_user-abdf6434cda029ecd32423baac4ec238.png"},
+    articleLiked : { type: Sequelize.STRING, defaultValue : ""}
 });
 
 const Article = db.define('article', {
@@ -18,8 +19,8 @@ const Article = db.define('article', {
         author : { type: Sequelize.STRING },
         imgSrc : { type: Sequelize.STRING },
         description : { type: Sequelize.STRING },
-        like : { type: Sequelize.INTEGER },
-        dislike : { type: Sequelize.INTEGER }
+        like : { type: Sequelize.INTEGER, defaultValue : 0 },
+        dislike : { type: Sequelize.INTEGER, defaultValue : 0 }
     });
 
 const Response = db.define('response', {
@@ -36,6 +37,8 @@ Article.belongsTo(User);
 Response.belongsTo(Article);
 Response.belongsTo(User);
 
+//db.sync();
+//db.drop();
 
 const getAllUsers = (next) => {
     return User
@@ -85,10 +88,27 @@ const createUser = (user) => {
             User.create({
                 username : user.username,
                 password : user.password,
-                article : [],
-                responses : []
             })
         })
+}
+
+const likeArticle = (idUser, idArticle, type) => {
+    User
+        .findOne({where: {id: idUser}})
+        .then((res)=> {
+            User.update(
+                {articleLiked : res.articleLiked + idArticle + ",",},
+                {where: {id: idUser}}
+            )
+        });
+    Article
+        .findOne({where: {id: idArticle}})
+        .then((res)=>{
+            Article.update(
+                {[type] : res[type] + 1,},
+                {where: {id: idArticle}}
+            )
+        });
 }
 
 const createArticle = (article)=>{
@@ -129,5 +149,6 @@ module.exports =
     getAllResponse : getAllResponse,
     createUser : createUser,
     createArticle : createArticle,
-    createResponse : createResponse
+    createResponse : createResponse,
+    likeArticle : likeArticle
 };
