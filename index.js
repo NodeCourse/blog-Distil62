@@ -1,10 +1,10 @@
-const express       = require("express");
+const express           = require("express");
 const cookieParser      = require('cookie-parser');
 const session           = require('express-session');
-const bodyParser    = require('body-parser')
-const Database      = require('./database.js');
-const Authentification = require('./authentification.js');
-const hash = require('hash.js')
+const bodyParser        = require('body-parser')
+const hash              = require('hash.js')
+const Database          = require('./database.js');
+const Authentification  = require('./authentification.js');
 
 const app = express();
 
@@ -24,7 +24,6 @@ app.use(Authentification.passport.session());
 
 app.get("/", (req, res) => {
     Database.getAllArticles((data)=>{
-        console.log(data);
         Database.getAllResponse((responses) => {
             res.render("index", {data : data, resp : responses, user : req.user});
         })
@@ -43,6 +42,25 @@ app.get("/register", (req, res) => {
     res.render("register", {user : req.user});
 });
 
+app.get("/profile", (req, res) => {
+    console.log(req.user);
+    if (req.user !== undefined)
+        Database.getAllArticlesById(req.user.id, (response)=>{
+            console.log("ID");
+            console.log(req.user.id);
+            console.log("responses");
+            console.log(response.dataValues);
+            res.render("profile", {user : req.user, articles : response});
+        })
+    else
+        res.redirect('/');
+});
+
+app.get("/logout", (req, res)=> {
+    req.logout();
+    res.redirect("/");
+})
+
 app.post("/api/post/add", (req, res)=> {
     Database.getUserByName(req.body.author, (res)=>{
         Database.createArticle({
@@ -58,7 +76,7 @@ app.post("/api/post/add", (req, res)=> {
 app.post("/api/post/ask", (req, res)=> {
     Database.createResponse(req.body);
     res.redirect("/");
-})
+});
 
 app.post("/api/post/login", Authentification.passport.authenticate('local', {
     successRedirect: '/',

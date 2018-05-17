@@ -34,7 +34,6 @@ Article.belongsTo(User);
 Response.belongsTo(Article);
 Response.belongsTo(User);
 
-db.sync();
 
 const getAllUsers = (next) => {
     return User
@@ -52,11 +51,20 @@ const getUserByName = (username, next) => {
         });
 }
 
+
 const getAllArticles = (next)=>{
     return Article
         .findAll()
         .then((res) => {
             next(res);
+        });
+}
+
+const getAllArticlesById = (id, next) =>{
+    return Article
+        .findAll({where : {userId : id}})
+        .then((res)=>{
+            next(res)
         });
 }
 
@@ -74,7 +82,9 @@ const createUser = (user) => {
         .then(()=>{
             User.create({
                 username : user.username,
-                password : user.password
+                password : user.password,
+                article : [],
+                responses : []
             })
         })
 }
@@ -113,6 +123,7 @@ module.exports =
     getAllUsers : getAllUsers,
     getUserByName : getUserByName,
     getAllArticles : getAllArticles,
+    getAllArticlesById : getAllArticlesById,
     getAllResponse : getAllResponse,
     createUser : createUser,
     createArticle : createArticle,

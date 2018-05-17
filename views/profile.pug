@@ -1,0 +1,27 @@
+html(lang="en")
+    include head.pug
+    body
+        main
+            include nav.pug
+            div.container.center-align
+                div.row
+                    div.col.s12
+                        h1=user.username
+                        img.responsive-img(src=user.icon)
+                        br
+                        button.btn.red.center-align(style="margin-top : 24px;")
+                            a.white-text(href="/logout") Deconnexion
+            div.container
+                if articles
+                    h3 Mes articles :
+                    div.row
+                        each article in articles
+                            div.col.s4
+                                a(href="/#"+article.id)
+                                    div.card
+                                        div.card-image
+                                            img(src=article.imgSrc)
+                                            span.card-title(id=article.id)=article.title
+            div(class="fixed-action-btn")
+                            a(href="/write" class="btn-floating yellow btn-large")
+                                i(class="large material-icons black-text") add
