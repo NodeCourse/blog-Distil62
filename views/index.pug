@@ -3,24 +3,29 @@ html(lang="en")
     body
         main
             include nav.pug
-            div(class="container")
+            div.container
                 each article in data
-                    div(class="card")
-                        div(class="card-image")
+                    div.card
+                        div.card-image
                             img(src=article.imgSrc)
-                            span(class="card-title")=article.title
-                        div(class="card-content")
+                            span.card-title(id=article.id)=article.title
+                        div.card-content
                             p=article.description
-                            p(class="right")
+                            p.right
                                 i=article.author
-                            div.card-action
-                                form(action="/api/post/ask", method="POST")
-                                    div.row
-                                        input(name="articleId", style="display : none;" value=article.id)
-                                        input.col.s3(name="authorRes", placeholder="Entrez votre pseudo" required)
-                                    textarea#askContent(name="contentRes", placeholder="Ecrivez votre réponse" class="materialize-textarea" required)
-                                    input(class="btn yellow black-text", type="submit", value="Répondre")
-                            div
+                            if user
+                                div.card-action
+                                    button.btn-flat.waves-effect.waves-red.red-text Dislike
+                                    button.btn-flat.waves-effect.waves-green.green-text Like
+                                    form(action="/api/post/ask", method="POST")
+                                        div.row
+                                            input(name="articleId", style="display : none;" value=article.id)
+                                            input.col.s3(name="authorRes", value=user.username, placeholder="Entrez votre pseudo" style="display:none;")
+                                        textarea#askContent(name="contentRes", placeholder="Ecrivez votre réponse" class="materialize-textarea" required)
+                                        input.btn.yellow.black-text(type="submit", value="Répondre")
+                                        
+                                            
+                            div(style="margin-top:24px;")
                                 ul.collapsible.row
                                     li
                                         div.collapsible-header
@@ -28,11 +33,15 @@ html(lang="en")
                                             i.material-icons arrow_drop_down
                                         div.collapsible-body
                                             ul.collection
-                                                each response in resp
-                                                    if response.articleId == article.id 
-                                                        li.collection-item
-                                                            h6=response.authorRes
-                                                            p=response.contentRes
+                                                if resp.length > 0
+                                                    each response in resp
+                                                        if response.articleId == article.id 
+                                                            li.collection-item
+                                                                h6=response.authorRes
+                                                                p(style="position : relative; left:16px;")=response.contentRes
+                                                if resp.length == 0
+                                                    li.collection-item
+                                                        p Soit le premier à commenter cet article !
             div(class="fixed-action-btn")
                             a(href="/write" class="btn-floating yellow btn-large")
                                 i(class="large material-icons black-text") add
