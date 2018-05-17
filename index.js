@@ -46,10 +46,6 @@ app.get("/profile", (req, res) => {
     console.log(req.user);
     if (req.user !== undefined)
         Database.getAllArticlesById(req.user.id, (response)=>{
-            console.log("ID");
-            console.log(req.user.id);
-            console.log("responses");
-            console.log(response.dataValues);
             res.render("profile", {user : req.user, articles : response});
         })
     else

@@ -17,7 +17,9 @@ const Article = db.define('article', {
         title : { type: Sequelize.STRING },
         author : { type: Sequelize.STRING },
         imgSrc : { type: Sequelize.STRING },
-        description : { type: Sequelize.STRING }
+        description : { type: Sequelize.STRING },
+        like : { type: Sequelize.INTEGER },
+        dislike : { type: Sequelize.INTEGER }
     });
 
 const Response = db.define('response', {
