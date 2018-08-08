@@ -5,7 +5,7 @@ An article should have at least the `title` and `content` properties.
 
 ## demo
 
-Demo avaiable on this [website](https://blog-distil62-cibonwqkiu.now.sh/)
+Demo avaiable on this [website](https://blog-distil62-cibonwqkiu.now.sh/) (lien mort)
 
 ## Step by step
 
